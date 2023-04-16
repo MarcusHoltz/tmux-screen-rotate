@@ -3,7 +3,7 @@
 
 These scripts present examples of how a TTY1 screen can be used (or over SSH) to visualize data and rotate through these windows.
 
-![Tmux-Window-Rotate-Gif](tmux-rotate.gif)
+![Tmux-Window-Rotate-Gif](tmux-window-rotate.gif)
 
 I have included detailed install examples, you just need to decide:
 
