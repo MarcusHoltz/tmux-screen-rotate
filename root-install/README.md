@@ -3,6 +3,7 @@ If you need status visuals 24/7, and you want them directly on the TTY of the pr
 
 ### Add Tmux
 Add Tmux with mouse on, save capabilities, copy, and plugin manager: 
+
 `clear; echo -e "INSTALL TMUX and FRIENDS\n\n"; sleep 1; sudo apt install -y tmux git xsel; sleep 3; clear; echo -e "Addding plugin manager to tmux: \n\n"; sleep 1; git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; touch ~/.tmux.conf; tmux source-file ~/.tmux.conf; sleep 2; clear; printf 'Now creating the tmux.conf\n\n'; sleep 2; bash -c "echo -e '# 720 no scope pane switch\nset -g mouse on\n\n# List of plugins\n'set -g @plugin \'tmux-plugins/tpm\''\n'set -g @plugin \'tmux-plugins/tmux-sensible\''\n'set -g @plugin \'tmux-plugins/tmux-yank\''\n'set -g @plugin \'tmux-plugins/tmux-resurrect\''\n\n# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)\n'run \'~/.tmux/plugins/tpm/tpm\'' '" > ~/.tmux.conf; sleep 3; tmux source ~/.tmux.conf; clear; printf 'To finish the job, you must open\n__tmux__\n\nand then hit \n__CTRL + b__\n\nthen within 2 seconds hit\n_I_ (capital I)\n ... this will install the plugin manager.\n\n'; sleep 1;`
 
 *Please make sure* you finish adding the plugin manager by opening tmux: `tmux` and then keying in `CTRL + b` (that's lowercase 'b') and then within 2 seconds, key in `I` (that's a capital 'i').
@@ -37,6 +38,7 @@ or if you dont have sudo, but have root's password:
 
 
 Add Tmux with mouse on, save capabilities, copy, and plugin manager: 
+
 `clear; echo -e "INSTALL TMUX and FRIENDS\n\n"; sleep 1; sudo apt install -y tmux git xsel; sleep 3; clear; echo -e "Addding plugin manager to tmux: \n\n"; sleep 1; git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; touch ~/.tmux.conf; tmux source-file ~/.tmux.conf; sleep 2; clear; printf 'Now creating the tmux.conf\n\n'; sleep 2; bash -c "echo -e '# 720 no scope pane switch\nset -g mouse on\n\n# List of plugins\n'set -g @plugin \'tmux-plugins/tpm\''\n'set -g @plugin \'tmux-plugins/tmux-sensible\''\n'set -g @plugin \'tmux-plugins/tmux-yank\''\n'set -g @plugin \'tmux-plugins/tmux-resurrect\''\n\n# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)\n'run \'~/.tmux/plugins/tpm/tpm\'' '" > ~/.tmux.conf; sleep 3; tmux source ~/.tmux.conf; clear; printf 'To finish the job, you must open\n__tmux__\n\nand then hit \n__CTRL + b__\n\nthen within 2 seconds hit\n_I_ (capital I)\n ... this will install the plugin manager.\n\n'; sleep 1;`
 
 *Please make sure* you finish adding the plugin manager by opening tmux: `tmux` and then keying in `CTRL + b` (that's lowercase 'b') and then within 2 seconds, key in `I` (that's a capital 'i').
