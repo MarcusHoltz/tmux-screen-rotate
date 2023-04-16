@@ -1,0 +1,8 @@
+#/bin/bash
+## This way it just changes the only character it needs to, no PM, extra extra large font
+# watch -t -c -n 1 'echo " $(date +"%I:%M.%S") " | 'figlet' -k -W -w 180 -f Doh' | /usr/games/lolcat -f -F .005 -p .15 -a -d 5 -s 10
+## This makes the clock look a lot busier. It sometimes moves fonts around to squish other characters together, creating more movenment to center the characters.
+watch -t -c -n 1 'echo " $(date +"%I:%M.%S") " | 'figlet' -c -k -W -w 180 -f standard' | /usr/games/lolcat -f -F .005 -p .15 -a -d 5 -s 10
+######## UNUSED ##########
+# watch -t -c -n 1 'echo " $(date +"%I:%M.%S %P") " | 'toilet' -f future --filter border' | lolcat -f -F .005 -p .15 -a -d 5 -s 10 watch -t -c -n 1 'echo " $(date +"%I:%M.%S %P") " | 
+# 'figlet' -c -k -w 180 -f Doh' | /usr/games/lolcat -f -F .005 -p .15 -a -d 5 -s 10
