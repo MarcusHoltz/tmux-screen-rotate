@@ -1,7 +1,7 @@
 # tmux-screen-rotate
 ## Welcome to my Tmux window shuffle repo.
 
-These scripts present examples of how a TTY1 screen can be used (or over SSH) to visualize data and rotate through these windows.
+These scripts present examples of dashboards and how to make a rotating Tmux windows. A TTY1 screen can be used (or over SSH) to visualize data and rotate through these Tmux windows.
 
 ![Tmux-Window-Rotate-Gif](tmux-window-rotate.gif)
 
