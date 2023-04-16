@@ -56,9 +56,14 @@ And paste this after the mouse input:
 bind-key C run-shell -b 'tmuxrotate -rotate #{session_name}'
 ```
 
-If you're not patient running it the first time, you may accidently spawn another script. Wait for the first window to rotate (12 seconds).
+
+##### Exit Root
+Now you can exit root and resume your normal user.
+`exit`
+
 
 * * *
+
 
 ##### Review changes
 Currently, we have installed for both our local user and ROOT tmux and tmux plugin manager. Tmux Plugins sensible, yank, and resurrect were installed by starting tmux and using the default prefix (ctrl + b) and then within 2 seconds, pressing `I` (that's a capital 'i').
