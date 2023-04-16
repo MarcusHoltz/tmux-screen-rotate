@@ -326,7 +326,7 @@ To install latest version:
 `cd ~; wget https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh && sed -i '4s/.*/DIR="${DIR:-"\/usr\/local\/bin"}"/' install_update_linux.sh && sudo chmod +x ~/install_update_linux.sh && sudo ./install_update_linux.sh && mkdir -p ~/.local; mkdir -p ~/.local/installed && mv install_update_linux.sh ~/.local/installed/lazydocker_updater.sh`
 
 
-####### Quick Breakdown of the command above:
+###### Quick Breakdown of the command above:
 Here is what the One Liner does: 
 
 - Download the script:
@@ -346,7 +346,7 @@ DIR="${DIR:-"/usr/local/bin"}"
 
 `sudo chmod +x ~/install_update_linux.sh && sudo ./install_update_linux.sh && mkdir -p ~/.local/installed && mv install_update_linux.sh ~/.local/installed/lazydocker_updater.sh` 
 
-We firt changed the install directory, to allow lazydocker to be accessable by the whole system (e.g. - root, or user 1000). Then moved the install file to a folder archiving everything installed on the system.
+We first changed the install directory, to allow lazydocker to be accessable by the whole system (e.g. - root, or user 1000). Then moved the install file to a folder archiving everything installed on the system.
 
 
 
