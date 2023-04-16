@@ -1,0 +1,3 @@
+#!/bin/bash
+curl https://api.quotable.io/random | grep -o -P '(?<="content":).*(?=,"tags")' | sed 's/,"author":/\n  -- /g' > ${TMPDIR:-/tmp}/quote
+clear
