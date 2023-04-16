@@ -59,6 +59,8 @@ bind-key C run-shell -b 'tmuxrotate -rotate #{session_name}'
 
 ##### Exit Root
 Now you can exit root and resume your normal user.
+Type:
+
 `exit`
 
 
