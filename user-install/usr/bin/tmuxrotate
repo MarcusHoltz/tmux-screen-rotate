@@ -1,0 +1,16 @@
+#!/bin/bash
+rotate(){
+        file=/tmp/mytmux.$session
+        if [ -f "$file" ]
+        then rm "$file"
+        else touch "$file"
+             while [ -f "$file" ] && tmux next-window -t "$session"
+             do     sleep 12
+             done
+        fi
+}
+case $1 in
+-rotate)shift
+        session=${1?session name}
+        rotate ;;
+esac
