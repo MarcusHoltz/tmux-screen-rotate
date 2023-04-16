@@ -124,7 +124,7 @@ tmux split-window -t :clock -v -l 62%
 # apt install ncal
 tmux send-keys -t :clock "while true; do clear; cal | lolcat; date | lolcat; sleep 21600; done" Enter
 tmux split-window -t :clock -v -l 80%
-tmux send-keys -t :clock "while true; do clear; ~/.get-random-quotes; clear; cat /tmp/quote | figlet -f Straight -c -w 180 | lolcat; sleep 208; done" Enter
+tmux send-keys -t :clock "while true; do clear; ~/.get-random-quotes; clear; cat /tmp/quote | figlet -f standard -c -w 180 | lolcat; sleep 208; done" Enter
 # an alternative to curling for your quotes is to install github.com/mubaris/motivate and just use a local collection
 tmux new-window -n weather
 tmux send-keys -t :weather "while true; do clear; curl wttr.in/denver; sleep 900; done" Enter
