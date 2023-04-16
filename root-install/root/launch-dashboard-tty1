@@ -1,0 +1,34 @@
+#!/bin/bash
+# Bash Menu Script for starting cool dashboards
+# Note: Tmux run as another user will require that other user to have run and installed the .tmux.conf first
+#       Be sure to change username_you_put_this_on to the proper value.
+# Add the following below to your root's .profile (without the number sign infront of sleep)
+###########################################################################
+#### After login, launch the Dashboard Menu Script for cool TTY1 dashboard
+# sleep 4; bash /root/.launch-dashboard-tty1;
+###########################################################################
+
+echo -e "\nHit 'ctrl+c' to exit this menu...\n"; sleep 5;
+PS3='What do you want to do now that Proxbox is on? '
+options=("Rotate through Dashboards with tmux" "Where am I? What am I doing?" "Start only bottom" "Quit this laucher")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Rotate through Dashboards with tmux")
+echo -e "\nRoger that." && sleep 1 && echo -e "\nStarting Dashboards with tmux" && sleep 3 && runuser -u username_you_put_this_on -- bash /usr/bin/tmuxautostart;
+        break
+            ;;
+        "Where am I? What am I doing?")
+echo -e "\nRoger that." && sleep 1 && echo -e "\nConsulting computer spirits for guidence..." && sleep 4 && echo -e "\nReceiving guidence..." && sleep 1 && echo -e "Receiving guidence..." && sleep .5 && echo -e "Receiving guidence..." && sleep .5 && echo -e "Guidence Downloaded" && sleep 1 && curl https://pastebin.com/raw/wN5brNED;
+        break
+            ;;
+        "Start only bottom")
+echo -e "\nRoger that." && sleep 1 && echo -e "\nLaunching bottom..." && sleep 1 && btm -f --autohide_time --hide_table_gap --mem_as_value --network_use_bytes;
+        break
+            ;;
+        "Quit this laucher")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
