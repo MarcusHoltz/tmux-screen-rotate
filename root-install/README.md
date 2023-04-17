@@ -207,7 +207,7 @@ First, install `sudo apt install -y lolcat figlet toilet ncal` to get a few to w
 
 * * *
 
-#### Get Random Quotes script
+### Get Random Quotes script
 Open a text editor with the filename .get-random-quotes:
 
 Open that new text file and place the following in:
@@ -230,7 +230,7 @@ Now, make the file executable:
 
 * * *
 
-#### LOLcat clock script
+### LOLcat clock script
 Open a text editor with the filename .start-lolcat-clock:
 
 `nano .start-lolcat-clock`
@@ -248,7 +248,7 @@ Now, make the file executable:
 
 * * *
 
-##### Start the application upon login
+### Start the application upon login
 
 If you want to start this automatically:
 
@@ -318,9 +318,9 @@ sleep 4; bash /root/.launch-dashboard-tty1;
 
 * * *
 
-### Other Applications
+## Other Applications
 
-#### Cool terminal info for your host system
+### Cool terminal info for your host system
 [A customizable cross-platform graphical process/system monitor for the terminal.](https://github.com/ClementTsang/bottom)
 
 To install latest version:
@@ -329,14 +329,14 @@ To install latest version:
 
 * * *
 
-#### Cool terminal info for docker
+### Cool terminal info for docker
 [A simple terminal UI for both docker and docker-compose.](https://github.com/jesseduffield/lazydocker)
 
 To install latest version:
 `cd ~; wget https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh && sed -i '4s/.*/DIR="${DIR:-"\/usr\/local\/bin"}"/' install_update_linux.sh && sudo chmod +x ~/install_update_linux.sh && sudo ./install_update_linux.sh && mkdir -p ~/.local; mkdir -p ~/.local/installed && mv install_update_linux.sh ~/.local/installed/lazydocker_updater.sh`
 
 
-##### Quick Breakdown of the command above:
+#### Quick Breakdown of the command above:
 Here is what the One Liner does: 
 
 - Download the script:
