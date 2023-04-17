@@ -78,7 +78,7 @@ After that, editing the .tmux.conf file for both the local user and ROOT.
 
 If you have reviewed all the changes, and feel they were accomplished successfully -- we can move on to the fancy stuff.
 
-
+* * *
 
 ## Tmux on tty1 host fancy
 ###  Tmux autorotate script - rotate that cool terminal info
@@ -121,6 +121,7 @@ Now, make the file executable:
 
 `sudo chmod +x /usr/bin/tmuxrotate`
 
+* * *
 
 ###  Tmux countdown
 To make this look snazzy we need a few more files.
@@ -150,7 +151,7 @@ Now, make the file executable:
 `sudo chmod +x /usr/bin/tmuxcountdown`
 
 
-
+* * *
 
 ###  Tmux autostart
 This is the file that triggers the whole script shabang. 
@@ -195,7 +196,7 @@ Now, make the file executable:
 
 
 
-
+* * *
 ## All the toys
 
 I have a bunch of extra scripts that will start other panes inside of Tmux autorotate.
@@ -204,7 +205,7 @@ You need to install a few files and setup some scripts.
 
 First, install `sudo apt install -y lolcat figlet toilet ncal` to get a few to work.
 
-
+* * *
 
 #### Get Random Quotes script
 Open a text editor with the filename .get-random-quotes:
@@ -227,7 +228,7 @@ Now, make the file executable:
 
 `chmod +x .get-random-quotes`
 
-
+* * *
 
 #### LOLcat clock script
 Open a text editor with the filename .start-lolcat-clock:
@@ -245,7 +246,7 @@ Now, make the file executable:
 
 `chmod +x .start-lolcat-clock`
 
-
+* * *
 
 ##### Start the application upon login
 
@@ -315,7 +316,7 @@ Add to your root's `.profile` place the following in at the bottom:
 sleep 4; bash /root/.launch-dashboard-tty1;
 ```
 
-
+* * *
 
 ### Other Applications
 
@@ -326,6 +327,7 @@ To install latest version:
 
 `curl -s https://api.github.com/repos/ClementTsang/bottom/releases/latest | grep "browser_download_url.*amd64.deb" | cut -d : -f 2,3 | tr -d \" | wget -i - && sudo dpkg -i bottom*.deb && mkdir -p ~/.local; mkdir -p ~/.local/installed && mv bottom*.deb ~/.local/installed`
 
+* * *
 
 #### Cool terminal info for docker
 [A simple terminal UI for both docker and docker-compose.](https://github.com/jesseduffield/lazydocker)
@@ -357,7 +359,7 @@ DIR="${DIR:-"/usr/local/bin"}"
 We first changed the install directory, to allow lazydocker to be accessable by the whole system (e.g. - root, or user 1000). Then moved the install file to a folder archiving everything installed on the system.
 
 
-
+* * *
 ## With hopes to add:
 ### - [WTF](https://github.com/wtfutil/wtf/)
 - - Wtfutil is the personal information dashboard for your terminal, providing at-a-glance access to your very important but infrequently-needed stats and data.
