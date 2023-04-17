@@ -1,14 +1,15 @@
-## Cool terminal info for your host system
+# tmux-screen-rotate (root install)
+b#b# Cool terminal info for your host system
 If you need status visuals 24/7, and you want them directly on the TTY of the primary host, then this repo is just for you!
 
-### Add Tmux
+# Add Tmux
 Add Tmux with mouse on, save capabilities, copy, and plugin manager: 
 
 `clear; echo -e "INSTALL TMUX and FRIENDS\n\n"; sleep 1; sudo apt install -y tmux git xsel; sleep 3; clear; echo -e "Addding plugin manager to tmux: \n\n"; sleep 1; git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; touch ~/.tmux.conf; tmux source-file ~/.tmux.conf; sleep 2; clear; printf 'Now creating the tmux.conf\n\n'; sleep 2; bash -c "echo -e '# 720 no scope pane switch\nset -g mouse on\n\n# List of plugins\n'set -g @plugin \'tmux-plugins/tpm\''\n'set -g @plugin \'tmux-plugins/tmux-sensible\''\n'set -g @plugin \'tmux-plugins/tmux-yank\''\n'set -g @plugin \'tmux-plugins/tmux-resurrect\''\n\n# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)\n'run \'~/.tmux/plugins/tpm/tpm\'' '" > ~/.tmux.conf; sleep 3; tmux source ~/.tmux.conf; clear; printf 'To finish the job, you must open\n__tmux__\n\nand then hit \n__CTRL + b__\n\nthen within 2 seconds hit\n_I_ (capital I)\n ... this will install the plugin manager.\n\n'; sleep 1;`
 
 *Please make sure* you finish adding the plugin manager by opening tmux: `tmux` and then keying in `CTRL + b` (that's lowercase 'b') and then within 2 seconds, key in `I` (that's a capital 'i').
 
-#### Add to Tmux config
+### Add to Tmux config
 Now we can add a shortcut to Tmux to launch this script when we hit a designated key.
 
 Open `nano ~/.tmux.conf`
@@ -25,8 +26,8 @@ If you're not patient running it the first time, you may accidently spawn anothe
 
 
 * * *
-### DO IT AGAIN AS ROOT 
-#### Add Tmux as ROOT
+## DO IT AGAIN AS ROOT 
+### Add Tmux as ROOT
 Switch to the root user:
 
 `sudo su -`
@@ -43,7 +44,7 @@ Add Tmux with mouse on, save capabilities, copy, and plugin manager:
 
 *Please make sure* you finish adding the plugin manager by opening tmux: `tmux` and then keying in `CTRL + b` (that's lowercase 'b') and then within 2 seconds, key in `I` (that's a capital 'i').
 
-#### Add to ROOT's Tmux config 
+### Add to ROOT's Tmux config 
 Now we can add a shortcut to Tmux to launch this script when we hit a designated key.
 
 Open `nano ~/.tmux.conf`
@@ -57,7 +58,7 @@ bind-key C run-shell -b 'tmuxrotate -rotate #{session_name}'
 ```
 
 
-##### Exit Root
+#### Exit Root
 Now you can exit root and resume your normal user.
 Type:
 
@@ -67,7 +68,7 @@ Type:
 * * *
 
 
-##### Review changes
+## Review changes
 Currently, we have installed for both our local user and ROOT tmux and tmux plugin manager. Tmux Plugins sensible, yank, and resurrect were installed by starting tmux and using the default prefix (ctrl + b) and then within 2 seconds, pressing `I` (that's a capital 'i').
 
 After that, editing the .tmux.conf file for both the local user and ROOT.
@@ -79,8 +80,8 @@ If you have reviewed all the changes, and feel they were accomplished successful
 
 
 
-### Tmux on tty1 host fancy
-####  Tmux autorotate script - rotate that cool terminal info
+## Tmux on tty1 host fancy
+###  Tmux autorotate script - rotate that cool terminal info
 
 You can use Tmux to roate between dashboard pannels on your TTY.
 
@@ -121,7 +122,7 @@ Now, make the file executable:
 `sudo chmod +x /usr/bin/tmuxrotate`
 
 
-####  Tmux countdown
+###  Tmux countdown
 To make this look snazzy we need a few more files.
 
 Open a text editor with the filename tmuxcountdown: 
@@ -151,7 +152,7 @@ Now, make the file executable:
 
 
 
-####  Tmux autostart
+###  Tmux autostart
 This is the file that triggers the whole script shabang. 
 
 PLEASE REPLACE: username_for_docker_server@192.168.8.31
@@ -195,7 +196,7 @@ Now, make the file executable:
 
 
 
-### All the toys
+## All the toys
 
 I have a bunch of extra scripts that will start other panes inside of Tmux autorotate.
 
@@ -205,7 +206,7 @@ First, install `sudo apt install -y lolcat figlet toilet ncal` to get a few to w
 
 
 
-##### Get Random Quotes script
+#### Get Random Quotes script
 Open a text editor with the filename .get-random-quotes:
 
 Open that new text file and place the following in:
@@ -228,7 +229,7 @@ Now, make the file executable:
 
 
 
-##### LOLcat clock script
+#### LOLcat clock script
 Open a text editor with the filename .start-lolcat-clock:
 
 `nano .start-lolcat-clock`
@@ -246,7 +247,7 @@ Now, make the file executable:
 
 
 
-###### Start the application upon login
+##### Start the application upon login
 
 If you want to start this automatically:
 
@@ -265,10 +266,10 @@ Open that new text file and place the following in:
 # Bash Menu Script for starting cool dashboards
 # Note: Tmux run as another user will require that other user to have run and installed the .tmux.conf first
 # Add the following below to your root's .profile (without the number sign infront of sleep)
-###########################################################################
-#### After login, launch the Dashboard Menu Script for cool TTY1 dashboard
+###################################################d#d#dc#cb#b#
+### After login, launch the Dashboard Menu Script for cool TTY1 dashboard
 # sleep 4; bash /root/.launch-dashboard-tty1;
-###########################################################################
+###################################################d#d#dc#cb#b#
 
 echo -e "\nHit 'ctrl+c' to exit this menu...\n"; sleep 5;
 PS3='What do you want to do now that Proxbox is on? '
@@ -316,9 +317,9 @@ sleep 4; bash /root/.launch-dashboard-tty1;
 
 
 
-#### Other Applications
+### Other Applications
 
-##### Cool terminal info for your host system
+#### Cool terminal info for your host system
 [A customizable cross-platform graphical process/system monitor for the terminal.](https://github.com/ClementTsang/bottom)
 
 To install latest version:
@@ -326,14 +327,14 @@ To install latest version:
 `curl -s https://api.github.com/repos/ClementTsang/bottom/releases/latest | grep "browser_download_url.*amd64.deb" | cut -d : -f 2,3 | tr -d \" | wget -i - && sudo dpkg -i bottom*.deb && mkdir -p ~/.local; mkdir -p ~/.local/installed && mv bottom*.deb ~/.local/installed`
 
 
-##### Cool terminal info for docker
+#### Cool terminal info for docker
 [A simple terminal UI for both docker and docker-compose.](https://github.com/jesseduffield/lazydocker)
 
 To install latest version:
 `cd ~; wget https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh && sed -i '4s/.*/DIR="${DIR:-"\/usr\/local\/bin"}"/' install_update_linux.sh && sudo chmod +x ~/install_update_linux.sh && sudo ./install_update_linux.sh && mkdir -p ~/.local; mkdir -p ~/.local/installed && mv install_update_linux.sh ~/.local/installed/lazydocker_updater.sh`
 
 
-###### Quick Breakdown of the command above:
+##### Quick Breakdown of the command above:
 Here is what the One Liner does: 
 
 - Download the script:
@@ -357,9 +358,9 @@ We first changed the install directory, to allow lazydocker to be accessable by 
 
 
 
-### With hopes to add:
-#### - [WTF](https://github.com/wtfutil/wtf/)
+## With hopes to add:
+### - [WTF](https://github.com/wtfutil/wtf/)
 - - Wtfutil is the personal information dashboard for your terminal, providing at-a-glance access to your very important but infrequently-needed stats and data.
 
-#### - [Sampler](https://github.com/sqshq/sampler)
+### - [Sampler](https://github.com/sqshq/sampler)
 - - Sampler works with shell commands execution, visualization and alerting. Configured with a simple YAML file.
