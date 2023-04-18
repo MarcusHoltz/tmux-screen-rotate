@@ -327,6 +327,32 @@ To install latest version:
 
 `curl -s https://api.github.com/repos/ClementTsang/bottom/releases/latest | grep "browser_download_url.*amd64.deb" | cut -d : -f 2,3 | tr -d \" | wget -i - && sudo dpkg -i bottom*.deb && mkdir -p ~/.local; mkdir -p ~/.local/installed && mv bottom*.deb ~/.local/installed`
 
+
+
+#### Add an update script to cron for your new cool terminal info for your host system
+```
+##########################################
+#### INSTALL LATEST VERSION OF BOTTOM ####
+###           NOTES                    ###
+# If youd like to remove the package itself (without the configuration files), youll have to run:
+#  `dpkg -r urserver`                    #
+#                                        #
+# If youd like to delete (purge) the package completely (with configuration files), youll have to run:
+#  `dpkg -P urserver`                    #
+#                                        #
+# You may check if the package has been removed successfully - simply run again:
+#  `dpkg -l urserver`                    #
+#                                        #
+##########################################
+curl -s https://api.github.com/repos/ClementTsang/bottom/releases/latest | grep "browser_download_url.*amd64.deb" | cut -d : -f 2,3 | tr -d \" | wget -i -
+sudo dpkg -i bottom*.deb
+rm bottom*.deb
+echo " "; echo "Bottom has been downloaded, installed, and downloaded content has been removed. ";
+echo "Version $(curl -s https://api.github.com/repos/ClementTsang/bottom/releases/latest | grep -m 1 -o -P '(?<=/download/).*(?=/bottom_)') has been installed.";
+echo " ";
+```
+
+
 * * *
 
 ### Cool terminal info for docker
