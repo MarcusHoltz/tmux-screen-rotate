@@ -1,5 +1,5 @@
 # tmux-screen-rotate (root install)
-b#b# Cool terminal info for your host system
+## Cool terminal info for your host system
 If you need status visuals 24/7, and you want them directly on the TTY of the primary host, then this repo is just for you!
 
 # Add Tmux
