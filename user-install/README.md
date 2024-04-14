@@ -140,6 +140,7 @@ tmux send-keys -t :weather "while true; do clear; curl wttr.in/denver; sleep 900
 tmux new-window -n lazydocker
 sleep 1;
 tmux send-keys -t :lazydocker "clear;  echo -e '\n   You have 20 seconds\n         ---\n       hit CTRL-b \n         then\n       capital C\n         ---\n' &&  bash tmuxcountdown; sleep 3 && clear; ssh-keyscan $1 >> ~/.ssh/known_hosts; sshpass -p passwordtotheserver ssh -o StrictHostKeyChecking=no -t username_for_docker_server@192.168.8.31 'lazydocker'" Enter
+# You could add an additional screen to display all network interfaces and their current transfer rates (hit 'g' for a just a list of interfaces): bmon -p enp*,vmbr*,bond*,tap*
 tmux attach
 ```
 
