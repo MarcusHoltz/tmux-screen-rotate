@@ -28,7 +28,7 @@ Copy and Paste into your terminal and run my install script:
 
 <details>  
 
-<summary>INSTALL TMUX and FRIENDS\</summary>  
+<summary>INSTALL TMUX and FRIENDS</summary>  
 
 ```bash
 bash << 'TMUXSETUP'
