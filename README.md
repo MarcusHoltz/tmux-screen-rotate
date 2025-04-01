@@ -26,6 +26,10 @@ Dont have Tmux installed?
 
 Copy and Paste into your terminal and run my install script:
 
+<details>  
+
+<summary>INSTALL TMUX and FRIENDS\</summary>  
+
 ```bash
 bash << 'TMUXSETUP'
 clear
@@ -106,3 +110,4 @@ tmux source-file ~/.tmux.conf > /dev/null 2>&1
 sleep 1; clear; printf 'To finish the job, you must open\n__tmux__\n\nand then hit \n__CTRL + b__\n\nthen within 2 seconds hit\n_I_ (capital I)\n ... this will install the plugin manager.\n\n'; sleep 1;
 TMUXSETUP
 ```
+</details> 
