@@ -111,3 +111,29 @@ sleep 1; clear; printf 'To finish the job, you must open\n__tmux__\n\nand then h
 TMUXSETUP
 ```
 </details> 
+
+
+
+
+### VGA Terminal fontsizes
+
+You may need to reduce the font-size if using an old VGA screen on your terminal.
+
+<details>  
+
+<summary>Directions to change serial font-size on Debian</summary>
+
+```
+sudo dpkg-reconfigure console-setup
+
+Your options will be presented to you when using the dpkg-reconfigure utility above, here are the choices:
+          VGA  (sizes  8x8,  8x14,  8x16,  16x28  and  16x32),  
+          Terminus  (sizes  6x12, 8x14, 8x16, 10x20, 12x24, 14x28  and 16x32), 
+          TerminusBold  (sizes 8x14, 8x16, 10x20, 12x24,  14x28  and  16x32),  
+          TerminusBoldVGA  (sizes  8x14 and 8x16), and 
+          Fixed  (sizes  8x13,  8x14,  8x15,  8x16  and  8x18).
+
+Once completed, this will apply the changes and update the file: /etc/default/console-setup
+```
+</details> 
+
