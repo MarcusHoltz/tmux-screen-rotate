@@ -113,9 +113,9 @@ TMUXSETUP
 </details> 
 
 
+* * *
 
-
-### VGA Terminal fontsizes
+## VGA Terminal fontsizes
 
 You may need to reduce the font-size if using an old VGA screen on your terminal.
 
