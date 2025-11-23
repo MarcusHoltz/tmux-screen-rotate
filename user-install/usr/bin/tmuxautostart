@@ -1,6 +1,6 @@
 #!/bin/bash
 tmux new-session -d -n btm
-tmux send-keys -t :btm "btm -f --autohide_time --hide_table_gap --mem_as_value --network_use_bytes" Enter
+tmux send-keys -t :btm "btm -f --autohide_time --hide_table_gap --process_memory_as_value --network_use_bytes" Enter
 tmux new-window -n clock
 tmux send-keys -t :clock "~/.start-lolcat-clock" Enter
 tmux split-window -t :clock -v -l 62%
