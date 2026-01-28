@@ -1,23 +1,279 @@
 #!/bin/bash
-tmux new-session -d -n btm
-tmux send-keys -t :btm "btm -f --autohide_time --hide_table_gap --process_memory_as_value --network_use_bytes" Enter
-tmux new-window -n clock
-tmux send-keys -t :clock "~/.start-lolcat-clock" Enter
-tmux split-window -t :clock -v -l 62%
-# apt install ncal
-tmux send-keys -t :clock "while true; do clear; cal | /usr/games/lolcat -f -F .005 -p .15 -a -d 5 -s 10; date | /usr/games/lolcat -f -F .005 -p .15; sleep 21600; done" Enter
-tmux split-window -t :clock -v -l 80%
-tmux send-keys -t :clock "while true; do clear; ~/.get-random-quotes; clear; cat /tmp/quote | figlet -f standard -c -w 180 | /usr/games/lolcat -f -F .015 -p .7; sleep 208; done" Enter
-# an alternative to curling for your quotes is to install github.com/mubaris/motivate and just use a local collection
-tmux new-window -n weather
-tmux send-keys -t :weather "while true; do clear; curl wttr.in/denver; sleep 900; done" Enter
-# apt install sysstat
-tmux new-window -n stats
-tmux send-keys -t :stats 'msgs=("CPU Use" "CPU Stats" "IO Stats" "MEMORY Use" "DISK stats" "NETWORK stats" "TEMP Use" "USB Use" "SYSTEM Switching Use" "SYSTEM Que Length" "SYSTEM Paging Stats"); cmds=("sar -u 1 3" "sar -q CPU 1 3" "sar -q IO 1 5" "sar -r 1 5" "sar -d 1 3" "sar -n DEV 1 3" "sar -m TEMP 1 5" "sar -m USB 1 1" "sar -w 1 5" "sar -q LOAD 1 3" "sar -B 1 5"); while true; do sleep 2; for i in "${!msgs[@]}"; do printf "\n\n------------------------------------------------------------------------------------\n%s\n" "${msgs[i]}"; eval "${cmds[i]}"; done; done' Enter
-# apt install htop
-tmux new-window -n htop
-tmux new-window -n lazydocker
+#
+# tmuxautostart - Automated tmux session setup script
+#
+# DESCRIPTION:
+#   This script creates and configures two tmux sessions with multiple monitoring
+#   and visualization windows. It's designed to provide a comprehensive system
+#   monitoring dashboard that starts automatically.
+#
+# SESSIONS CREATED:
+#   1) "proxails" - Primary monitoring session
+#      • metrics: CPU, network, and disk I/O monitoring
+#      • pve: Proxmox VE status and logs
+#      • jails: fail2ban monitoring and system statistics
+#      • atop: Advanced system performance monitor
+#
+#   2) "extras" - Secondary utilities session
+#      • btm: bottom system monitor
+#      • clock: Colorful clock, calendar, and info display
+#      • weather: Console-based weather display
+#      • stats: Rotating system statistics dashboard
+#      • bonsai: Decorative bonsai tree animation
+#      • htop: Interactive process viewer
+#
+# PREREQUISITES:
+#   The following tools must be installed for all features to work:
+#   • Core monitoring: htop, iftop, iotop, atop, btm (bottom)
+#   • System stats: sysstat (sar command)
+#   • Proxmox tools: qm, pct, pvesm, journalctl
+#   • Utilities: cbonsai, lolcat, cal (or ncal), curl
+#   • Custom scripts: tmuxcountdown, tmuxrotate, fail2ban-monitor.sh, .get-random-quotes, .start-lolcat-clock
+#
+# USAGE:
+#   Run this script from a regular shell (not from inside tmux):
+#     $ bash tmuxautostart
+#
+#   The script will create both sessions and attach to "extras" by default.
+#
+# TMUX NAVIGATION:
+#   • Detach from session: Ctrl-b d
+#   • Switch sessions: Ctrl-b s (then use arrows to select)
+#   • Switch windows: Ctrl-b n (next) or Ctrl-b p (previous)
+#   • List windows: Ctrl-b w
+#   • Reattach later: tmux attach -t proxails  OR  tmux attach -t extras
+#
+# NOTES:
+#   • Some commands require sudo privileges (htop, iftop, iotop)
+#   • The script assumes you're running on a Proxmox host
+#   • Adjust sleep intervals and refresh rates as needed for your system
+#
+
+
+########################################
+# SESSION 1: proxails
+# Primary system monitoring session
+########################################
+
+# Create a new detached session named "proxails" with initial window "metrics"
+tmux new-session -d -s proxails -n metrics
+
+
+########################################
+# WINDOW: metrics
+# Layout: [left: htop] [right-top: iftop] [right-bottom: iotop]
+########################################
+
+# Left pane: htop (interactive process viewer)
+tmux send-keys -t proxails:metrics 'sudo htop' Enter
+
+# Split horizontally to create right column (40% width)
+tmux split-window -h -t proxails:metrics -p 40
+
+# Right-top pane: iftop (network bandwidth monitor)
+tmux send-keys -t proxails:metrics 'sudo iftop' Enter
+
+# Split right column vertically (50% height) for iotop
+tmux split-window -v -t proxails:metrics -p 50
+
+# Right-bottom pane: iotop (disk I/O monitor)
+tmux send-keys -t proxails:metrics 'sudo iotop' Enter
+
+
+########################################
+# WINDOW: pve
+# Layout: [left: cbonsai] [right-top: storage] [right-middle: VMs/CTs] [right-bottom: logs]
+########################################
+
+tmux new-window -t proxails -n pve
+
+# Left column: cbonsai (decorative bonsai tree animation)
+tmux send-keys -t proxails:pve \
+'while true; sleep .5; do clear; timeout 180 /usr/games/cbonsai -li -L 81 -M 13 -w 0.5; sleep 1; done' Enter
+
+# Split off right column (35% width)
+tmux split-window -h -t proxails:pve -p 35
+
+# Right-top pane: Proxmox storage status (refresh every 10 seconds)
+tmux send-keys -t proxails:pve 'watch -n 10 pvesm status' Enter
+
+# Split right column vertically to create middle pane (35% of right column)
+tmux split-window -v -t proxails:pve -p 35
+
+# Right-middle pane: List of VMs and containers (refresh every 5 seconds)
+tmux send-keys -t proxails:pve \
+'watch -n 5 "echo \"VMs:\" && qm list && echo && echo \"CTs:\" && pct list"' Enter
+
+# Split again for bottom pane (55% of remaining space)
+tmux split-window -v -t proxails:pve -p 55
+
+# Right-bottom pane: Live pvedaemon logs
+tmux send-keys -t proxails:pve 'journalctl -u pvedaemon -f' Enter
+
+
+########################################
+# WINDOW: jails
+# Layout: [top-left: fail2ban] [bottom-left: sar stats] [right: cbonsai]
+########################################
+
+tmux new-window -t proxails -n jails
+
+# Top-left pane: fail2ban monitoring (refresh every 20 seconds)
+tmux send-keys -t proxails:jails \
+'watch -c -d -n 20 -w -t fail2ban-monitor.sh' Enter
+
+# Split vertically to create bottom-left pane (45% height)
+tmux split-window -v -t proxails:jails -p 45
+
+# Bottom-left pane: Rotating system statistics using sar
+tmux send-keys -t proxails:jails \
+'msgs=("CPU Use" "Run Queue" "IO Stats" "Memory Use" "Disk Stats" "Network Stats" "Context Switches" "Paging Stats");
+cmds=("sar -u 1 3" "sar -q 1 3" "sar -b 1 3" "sar -r 1 3" "sar -d 1 3" "sar -n DEV 1 3" "sar -w 1 3" "sar -B 1 3");
+i=0;
+while true; do
+  clear
+  echo "${msgs[$i]}:"
+  eval "${cmds[$i]}"
+  sleep 10
+  ((i=(i+1)%${#msgs[@]}))
+done' Enter
+
+# Split horizontally with -f flag to create full-height right pane (45% width)
+tmux split-window -h -t proxails:jails -f -p 45
+
+# Right pane: cbonsai (decorative bonsai tree animation)
+tmux send-keys -t proxails:jails \
+'while true; sleep .5; do clear; timeout 180 /usr/games/cbonsai -li -L 81 -M 13 -w 0.5; sleep 1; done' Enter
+
+
+########################################
+# WINDOW: atop
+# Full-window system performance monitor
+########################################
+
+tmux new-window -t proxails -n atop
+
+# Launch atop (advanced system performance monitor)
+tmux send-keys -t proxails:atop 'atop' Enter
+
+
+#######################################################
+#-----=========  END Proxmox Jails END =========------#
+#######################################################
+# CLEANUP OLD SESSIONS
+# Remove old session named "monitors" if it exists
+# tmux kill-session -t monitors 2>/dev/null || true
+#######################################################
+
+
+
+########################################
+# SESSION 2: extras
+# Secondary utilities and visualization session
+########################################
+
+# Create a new detached session named "extras" with initial window "btm"
+tmux new-session -d -s extras -n btm
+
+# Launch bottom (btm) with custom flags for clean display
+tmux send-keys -t extras:btm \
+'btm -f --autohide_time --hide_table_gap --process_memory_as_value --network_use_bytes' Enter
+
+
+########################################
+# WINDOW: clock
+# Layout: [top: lolcat clock] [middle: calendar] [bottom: info card]
+########################################
+
+tmux new-window -t extras -n clock
+
+# Top pane: Custom lolcat clock script
+tmux send-keys -t extras:clock '~/.start-lolcat-clock' Enter
+
+# Split vertically to create middle pane (62% of remaining space)
+tmux split-window -t extras:clock -v -l 62%
+
+# Middle pane: Colorful calendar and date display (refresh every 6 hours)
+tmux send-keys -t extras:clock \
+'while true; do
+  clear
+  cal | /usr/games/lolcat -f -F .005 -p .15 -a -d 5 -s 10
+  date | /usr/games/lolcat -f -F .005 -p .15
+  sleep 21600
+done' Enter
+
+# Split vertically again to create bottom pane (80% of remaining space)
+tmux split-window -t extras:clock -v -l 80%
+
+# Bottom pane: Info card from holtzweb.com (refresh every hour)
+# Note: Uses static DNS resolution to prevent split DNS issues
+tmux send-keys -t extras:clock 'while true; do clear; curl --resolve holtzweb.com:443:167.253.62.11 -sL https://www.holtzweb.com/card; sleep 3600; done' Enter
+
+
+########################################
+# WINDOW: weather
+# Console-based weather display
+########################################
+
+tmux new-window -t extras -n weather
+
+# Display weather for Denver (refresh every 15 minutes)
+# Customize location by changing "Denver" to your city
+tmux send-keys -t extras:weather 'while true; do clear; curl wttr.in/Denver; sleep 900; done' Enter
+
+
+########################################
+# WINDOW: stats
+# Comprehensive rotating system statistics dashboard
+########################################
+
+tmux new-window -t extras -n stats
+
+# Cycle through various system statistics using sar
+tmux send-keys -t extras:stats \
+'msgs=("CPU Use" "CPU Stats" "IO Stats" "MEMORY Use" "DISK stats" "NETWORK stats" "TEMP Use" "USB Use" "SYSTEM Switching Use" "SYSTEM Que Length" "SYSTEM Paging Stats");
+cmds=("sar -u 1 3" "sar -q CPU 1 3" "sar -q IO 1 5" "sar -r 1 5" "sar -d 1 3" "sar -n DEV 1 3" "sar -m TEMP 1 5" "sar -m USB 1 1" "sar -w 1 5" "sar -q LOAD 1 3" "sar -B 1 5");
+while true; do
+  sleep 2
+  for i in "${!msgs[@]}"; do
+    printf "\n\n------------------------------------------------------------------------------------\n%s\n" "${msgs[i]}"
+    eval "${cmds[i]}"
+  done
+done' Enter
+
+
+########################################
+# WINDOW: bonsai
+# Decorative bonsai tree animation
+########################################
+
+tmux new-window -t extras -n bonsai
+
+# Continuous bonsai tree animation (3-minute timeout per tree)
+tmux send-keys -t extras:bonsai 'while true; sleep .5; do clear; timeout 180 /usr/games/cbonsai -li -L 81 -M 13 -w 0.5; sleep 1; done' Enter
+
+
+
+########################################
+# WINDOW: htop
+# Interactive process viewer with startup instructions
+# This used to be lazydocker 
+# tmux send-keys -t extras:lazydocker "ssh-keyscan $1 >> ~/.ssh/known_hosts; sshpass -p passwordtotheserver ssh -o StrictHostKeyChecking=no -t username_for_docker_server@192.168.8.31 'lazydocker'" Enter
+########################################
+
+tmux new-window -t extras -n htop
+
+# Display instructions before launching htop
+# Note: Assumes tmuxcountdown script exists for countdown display
 sleep 1;
-tmux send-keys -t :lazydocker "clear;  echo -e '\n   You have 20 seconds\n         ---\n       hit CTRL-b \n         then\n       capital C\n         ---\n' &&  bash tmuxcountdown; sleep 3 && clear; ssh-keyscan $1 >> ~/.ssh/known_hosts; sshpass -p passwordtotheserver ssh -o StrictHostKeyChecking=no -t username_for_docker_server@192.168.8.31 'lazydocker'" Enter
-# You could add an additional screen to display all network interfaces and their current transfer rates (hit 'g' for a just a list of interfaces): bmon -p enp*,vmbr*,bond*,tap*
-tmux attach
+tmux send-keys -t extras:htop "clear; echo -e '\n   You have 20 seconds\n         ---\n       hit CTRL-b \n         then\n       capital C\n         ---\n' && bash tmuxcountdown; sleep 3 && clear; htop" Enter
+
+
+########################################
+# ATTACH TO SESSION
+# Connect to the extras session by default
+########################################
+
+# Attach to the "extras" session
+# To switch to "proxails" session: Press Ctrl-b s, then select with arrows
+tmux attach -t extras
