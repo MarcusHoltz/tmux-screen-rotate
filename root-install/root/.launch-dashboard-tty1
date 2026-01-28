@@ -23,7 +23,7 @@ echo -e "\nRoger that." && sleep 1 && echo -e "\nConsulting computer spirits for
         break
             ;;
        "Start growing my Bonsai plant")
-echo -e "\nAdding water..." && echo -e "\nLaunching cbonsai..." && while true; sleep 5; do clear; timeout 180 /usr/games/cbonsai -li -L 81 -M 13 -w 0.5; sleep 2; done; break
+echo -e "\nAdding water..." && /usr/games/cbonsai -li -L 81 -M 13 -w 0.5; break
     ;;
         "Quit this laucher")
             break
